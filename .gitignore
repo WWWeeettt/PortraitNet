@@ -1,0 +1,14 @@
+
+myExp/mobilenetv2_eg1800/both_224_without_group/checkpoint.pth.tar
+myExp/mobilenetv2_eg1800/both_224_without_group/log/test/events.out.tfevents.1567685825.dalong-2gpu
+myExp/mobilenetv2_eg1800/both_224_without_group/log/train/events.out.tfevents.1567685811.dalong-2gpu
+myExp/mobilenetv2_eg1800/both_224_without_group/model_best.pth
+myExp/mobilenetv2_eg1800/both_224_without_group/model_best.pth.tar
+myExp/mobilenetv2_eg1800/single_224_without_group/checkpoint.pth.tar
+myExp/mobilenetv2_eg1800/single_224_without_group/log/train/events.out.tfevents.1570607720.dalong-2gpu
+myExp/mobilenetv2_eg1800/single_224_without_group/model_best.pth
+myExp/mobilenetv2_eg1800/single_224_without_group/model_best.pth.tar
+myTest/.ipynb_checkpoints/EvalModel-checkpoint.ipynb
+myTest/.ipynb_checkpoints/VideoTest-checkpoint.ipynb
+myTest/.ipynb_checkpoints/VideoTest_tf-checkpoint.ipynb
+myTrain/model.pb
