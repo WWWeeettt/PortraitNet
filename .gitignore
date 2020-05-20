@@ -12,3 +12,4 @@ myTest/.ipynb_checkpoints/EvalModel-checkpoint.ipynb
 myTest/.ipynb_checkpoints/VideoTest-checkpoint.ipynb
 myTest/.ipynb_checkpoints/VideoTest_tf-checkpoint.ipynb
 myTrain/model.pb
+.vscode/sftp.json
