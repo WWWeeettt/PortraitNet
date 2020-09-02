@@ -13,3 +13,16 @@ myTest/.ipynb_checkpoints/VideoTest-checkpoint.ipynb
 myTest/.ipynb_checkpoints/VideoTest_tf-checkpoint.ipynb
 myTrain/model.pb
 .vscode/sftp.json
+data/data_aug.pyc
+data/datasets.pyc
+data/datasets_portraitseg.pyc
+model/model_mobilenetv2_seg_small_tf_lite.pyc
+myTrain/1.txt
+myTrain/result.jpg
+test/.ipynb_checkpoints/test_tf_model-checkpoint.ipynb
+test/result.jpg
+data/data_aug.pyc
+data/datasets.pyc
+data/datasets_portraitseg.pyc
+myTrain/1.txt
+myTrain/result.jpg
