@@ -2568,6 +2568,7 @@ Output/pred/kernel/Assign
 Output/pred/kernel/read
 Output/pred/dilation_rate
 Output/pred/Conv2D
+result
 loss/SparseSoftmaxCrossEntropyWithLogits/Shape
 loss/SparseSoftmaxCrossEntropyWithLogits/Shape_1
 loss/SparseSoftmaxCrossEntropyWithLogits/Shape_2
