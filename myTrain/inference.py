@@ -175,22 +175,22 @@ def image_test(model, mean, std, image_name, background):
     with tf.Session() as sess:
         input_x = img_tensor.cpu().detach().numpy()
         input_x = np.transpose(input_x, (0, 2, 3, 1))
-        saver=tf.train.import_meta_graph("Model/result154.meta")
-        saver.restore(sess, "Model/result154")
+        saver=tf.train.import_meta_graph("Model/result1950.meta")
+        saver.restore(sess, "Model/result1950")
         graph = tf.get_default_graph()
         
-        # writer = tf.summary.FileWriter("logs", graph)
-        # writer.close()
-        # for op in graph.get_operations():
-        #     print(op.name)
-        x = graph.get_tensor_by_name('Inputs/x_input:0')
-        y = graph.get_tensor_by_name('Output/result:0')
-        img_out = sess.run(y, feed_dict={x:input_x})
+        writer = tf.summary.FileWriter("logs", graph)
+        writer.close()
+        for op in graph.get_operations():
+            print(op.name)
+        # x = graph.get_tensor_by_name('Inputs/x_input:0')
+        # y = graph.get_tensor_by_name('Output/result:0')
+        # img_out = sess.run(y, feed_dict={x:input_x})
         
-    etime=time.time()
-    print("etime-stime:",etime-stime)
+    # etime=time.time()
+    # print("etime-stime:",etime-stime)
     
-    result=syn(img_out,img_orig, fw, fh, background)
+    # result=syn(img_out,img_orig, fw, fh, background)
    
 
     # cv2.imwrite("result.jpg", result)
@@ -256,6 +256,7 @@ if __name__ == '__main__':
 
     # img_ori = cv2.imread("/home/yupeng/Program/python/Data/EG1800/Images/00457.png")
     
+    # import model_mobilenetv2_seg_small_tf_lite as modellib
     import model_mobilenetv2_seg_small_tf as modellib
     netmodel = modellib.MobileNetV2(n_class=2,
                                     addEdge=exp_args.addEdge,
@@ -269,16 +270,17 @@ if __name__ == '__main__':
 
     # pred = netmodel.build(x)
 
-    mean=[117.46679, 125.55083, 137.98093]
-    std=[63.793976, 63.89187,  65.8852  ]
-    image_name="test.png"
-    # model , model_file,
-    # model.load_state_dict(torch.load(Max_name, "cpu"))# Load model
-    # model.eval()
+    # # output information and log
+    # mean=[117.46679, 125.55083, 137.98093]
+    # std=[63.793976, 63.89187,  65.8852  ]
+    # image_name="test.png"
     # background = cv2.imread('syn_bg.jpg')
     # image_test(netmodel, mean, std, image_name, background)
-    # netmodel.summary()
 
+
+
+    # convert model
+    image_name="test.png"
     img_ori = cv2.imread(image_name)
 
     background = img_ori.copy()
