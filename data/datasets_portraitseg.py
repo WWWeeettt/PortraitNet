@@ -118,6 +118,25 @@ class PortraitSeg(data.Dataset):
             H = aug_matrix(width, height, bbox, self.input_width, self.input_height,
                        angle_range=(-45, 45), scale_range=(0.5, 1.5), offset=self.input_height/4)
             
+        elif self.dataset in ["indoor", "outdoor"]:
+            # basic info
+            img_id = self.imgIds[index].strip()
+            img_path = os.path.join(self.ImageRoot, img_id)
+            img = cv2.imread(img_path)
+            # img_name = img_path[img_path.rfind('/')+1:]
+            
+            # load mask
+            annopath = os.path.join(self.AnnoRoot, img_id.replace('.jpg', '.png'))
+            mask = cv2.imread(annopath, 0)
+            if mask is None:
+                print(annopath)
+            mask[mask>0] = 1
+            
+            height, width, channel = img.shape
+            bbox = [0, 0, width-1, height-1]
+            H = aug_matrix(width, height, bbox, self.input_width, self.input_height,
+                       angle_range=(-45, 45), scale_range=(0.5, 1.5), offset=self.input_height/4)
+        
         elif self.dataset in ["supervisely_face_easy", "supervisely_face_difficult"]:
             # basic info
             img_path = os.path.join(self.ImageRoot, self.imgIds[index].strip())

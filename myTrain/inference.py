@@ -143,15 +143,15 @@ def pred_single(model, exp_args, img_ori, prior=None):
     
     with tf.Session() as sess:
         input_x = np.transpose(in_, (0, 2, 3, 1))
-        saver=tf.train.import_meta_graph("Model/result1950.meta")
-        saver.restore(sess, "Model/result1950")
+        saver=tf.train.import_meta_graph("Model/tf_lite_4_1710.meta")
+        saver.restore(sess, "Model/tf_lite_4_1710")
         graph = tf.get_default_graph()
         x = graph.get_tensor_by_name('Inputs/x_input:0')
         y = graph.get_tensor_by_name('result:0')
         img_out = sess.run(y, feed_dict={x:input_x})
 
         constant_graph = graph_util.convert_variables_to_constants(sess, sess.graph_def, ["result"])
-        with tf.gfile.FastGFile('Model/result.pb', mode='wb') as f:
+        with tf.gfile.FastGFile('Model/tf_lite_4.pb', mode='wb') as f:
             f.write(constant_graph.SerializeToString())
     
     predimg = img_out[0,:,:,1]
@@ -198,7 +198,7 @@ def image_test(model, mean, std, image_name, background):
 
 if __name__ == '__main__':
     print ('===========> loading config <============')
-    config_path = '/home/yupeng/Program/python/PortraitNet/config/model_mobilenetv2_without_auxiliary_losses.yaml'
+    config_path = '/home/yupeng/Program/python/PortraitNet/config/model_mobilenetv2_with_two_auxiliary_losses.yaml'
     print ("config path: ", config_path)
     with open(config_path, 'rb') as f:
         cont = f.read()
@@ -257,7 +257,7 @@ if __name__ == '__main__':
     # img_ori = cv2.imread("/home/yupeng/Program/python/Data/EG1800/Images/00457.png")
     
     # import model_mobilenetv2_seg_small_tf_lite as modellib
-    import model_mobilenetv2_seg_small_tf as modellib
+    import model_mobilenetv2_seg_small_tf2 as modellib
     netmodel = modellib.MobileNetV2(n_class=2,
                                     addEdge=exp_args.addEdge,
                                     channelRatio=1.0,

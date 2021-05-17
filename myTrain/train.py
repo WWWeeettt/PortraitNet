@@ -784,11 +784,11 @@ if __name__ == '__main__':
     parser.add_argument('--model', default='PortraitNet', type=str, 
                         help='<model> should in [PortraitNet, ENet, BiSeNet]')
     parser.add_argument('--config_path', 
-                        default='/home/yupeng/Program/python/PortraitNet/config/model_mobilenetv2_without_auxiliary_losses.yaml',
+                        default='/home/yupeng/Program/python/PortraitNet/config/outdoor.yaml',
                         type=str, help='the config path of the model')
     
     parser.add_argument('--workers', default=4, type=int, help='number of data loading workers')
-    parser.add_argument('--batchsize', default=4, type=int, help='mini-batch size')
+    parser.add_argument('--batchsize', default=64, type=int, help='mini-batch size')
     parser.add_argument('--lr', default=0.001, type=float, help='initial learning rate')
     parser.add_argument('--momentum', default=0.9, type=float, help='momentum')
     parser.add_argument('--weightdecay', default=5e-4, type=float, help='weight decay')

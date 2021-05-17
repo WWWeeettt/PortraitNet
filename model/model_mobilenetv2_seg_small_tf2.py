@@ -94,29 +94,46 @@ class MobileNetV2():
         self.n_class = n_class
 
     def build(self, x):
-        tmp = 4
-
+        tmp = 1
         with tf.variable_scope('stage0'):
             self.stage0 = conv_bn(x, self.depth(8*tmp), 3, 2)
         with tf.variable_scope('stage1'):
             self.stage1 = InvertedResidual(self.stage0, self.depth(8*tmp), self.depth(4*tmp), 1, 1) # 1/2
 
-        with tf.variable_scope('stage2'):
-            self.stage2 = InvertedResidual(self.stage1, self.depth(4*tmp), self.depth(6*tmp), 2, 6)
-
-        with tf.variable_scope('stage3'):
-            self.stage3 = InvertedResidual(self.stage2, self.depth(6*tmp), self.depth(8*tmp), 2, 6)
-
         with tf.variable_scope('ir1'):
-            ir1 = InvertedResidual(self.stage3, self.depth(8*tmp), self.depth(16*tmp), 2, 6)
+            ir1 = InvertedResidual(self.stage1, self.depth(4)*tmp, self.depth(6*tmp), 2, 6)
+        with tf.variable_scope('stage2'):
+            self.stage2 = InvertedResidual(ir1, self.depth(6*tmp), self.depth(6*tmp), 1, 6)
+
+        with tf.variable_scope('ir2'):
+            ir2 = InvertedResidual(self.stage2, self.depth(6*tmp), self.depth(8*tmp), 2, 6)
+        with tf.variable_scope('ir3'):
+            ir3 = InvertedResidual(ir2, self.depth(8*tmp), self.depth(8*tmp), 1, 6)
+        with tf.variable_scope('stage3'):
+            self.stage3 = InvertedResidual(ir3, self.depth(8*tmp), self.depth(8*tmp), 1, 6)
+
+        with tf.variable_scope('ir4'):
+            ir4 = InvertedResidual(self.stage3, self.depth(8*tmp), self.depth(16*tmp), 2, 6)
+        with tf.variable_scope('ir5'):
+            ir5 = InvertedResidual(ir4, self.depth(16*tmp), self.depth(16*tmp), 1, 6)
+        with tf.variable_scope('ir6'):
+            ir6 = InvertedResidual(ir5, self.depth(16*tmp), self.depth(16*tmp), 1, 6)
         with tf.variable_scope('stage4'):
-            self.stage4 = InvertedResidual(ir1, self.depth(16*tmp), self.depth(16*tmp), 1, 6)
+            self.stage4 = InvertedResidual(ir6, self.depth(16*tmp), self.depth(16*tmp), 1, 6)
 
+        with tf.variable_scope('ir7'):
+            ir7 = InvertedResidual(self.stage4, self.depth(16*tmp), self.depth(24*tmp), 1, 6)
+        with tf.variable_scope('ir8'):
+            ir8 = InvertedResidual(ir7, self.depth(24*tmp), self.depth(24*tmp), 1, 6)
         with tf.variable_scope('stage5'):
-            self.stage5 = InvertedResidual(self.stage4, self.depth(16*tmp), self.depth(24*tmp), 1, 6)
+            self.stage5 = InvertedResidual(ir8, self.depth(24*tmp), self.depth(24*tmp), 1, 6)
 
+        with tf.variable_scope('ir9'):
+            ir9 = InvertedResidual(self.stage5, self.depth(24*tmp), self.depth(40*tmp), 2, 6)
+        with tf.variable_scope('ir10'):
+            ir10 = InvertedResidual(ir9, self.depth(40*tmp), self.depth(40*tmp), 1, 6)
         with tf.variable_scope('stage6'):
-            self.stage6 = InvertedResidual(self.stage5, self.depth(24*tmp), self.depth(40*tmp), 2, 6)
+            self.stage6 = InvertedResidual(ir10, self.depth(40*tmp), self.depth(40*tmp), 1, 6)
         
         with tf.variable_scope('stage7'):
             self.stage7 = InvertedResidual(self.stage6, self.depth(40*tmp), self.depth(80*tmp), 1, 6) # 1/32
@@ -155,8 +172,6 @@ class MobileNetV2():
             return self.pred, self.edge
         else:
             return self.pred
-        
-        return self.pred
 
     def __call__(self, *args, **kwargs):
         if self.addEdge:

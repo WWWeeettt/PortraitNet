@@ -34,6 +34,22 @@ class Human(data.Dataset):
             exp_args.dataset = 'eg1800'
             self.datasets['eg1800'] = PortraitSeg(ImageRoot, AnnoRoot, ImgIds_Train, ImgIds_Test, self.exp_args)
         
+        if 'indoor' in self.datasetlist:
+            ImageRoot = self.data_root + 'maadaa.ai/train/indoor/'
+            AnnoRoot = self.data_root + 'maadaa.ai/train/indoor/'
+            ImgIds_Train = self.file_root + 'indoor_train.txt'
+            ImgIds_Test = self.file_root + 'indoor_test.txt'
+            exp_args.dataset = 'indoor'
+            self.datasets['indoor'] = PortraitSeg(ImageRoot, AnnoRoot, ImgIds_Train, ImgIds_Test, self.exp_args)
+        
+        if 'outdoor' in self.datasetlist:
+            ImageRoot = self.data_root + 'maadaa.ai/train/outdoor/'
+            AnnoRoot = self.data_root + 'maadaa.ai/train/outdoor/'
+            ImgIds_Train = self.file_root + 'outdoor_train.txt'
+            ImgIds_Test = self.file_root + 'outdoor_test.txt'
+            exp_args.dataset = 'outdoor'
+            self.datasets['outdoor'] = PortraitSeg(ImageRoot, AnnoRoot, ImgIds_Train, ImgIds_Test, self.exp_args)
+        
         if 'ATR' in self.datasetlist:
             ImageRoot = self.data_root + 'ATR/train/images/'
             AnnoRoot = self.data_root + 'ATR/train/seg/'

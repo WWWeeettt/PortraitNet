@@ -99,7 +99,7 @@ def main(args):
     print ('===========> loading model <===========')
     # train our model: portraitnet
     
-    import model_mobilenetv2_seg_small_tf as modellib
+    import model_mobilenetv2_seg_small_tf_lite as modellib
     netmodel = modellib.MobileNetV2(n_class=2,
                                     addEdge=exp_args.addEdge,
                                     channelRatio=1.0,
@@ -161,7 +161,7 @@ def main(args):
             if loss_ < minloss:
                 minloss = loss_
                 if minloss < 0.1:
-                    saver.save(sess, './Model/withloss{}'.format(epoch))
+                    saver.save(sess, './Model/tf_lite_4_{}'.format(epoch))
                     print('Save')
                 print("minloss:", minloss)
         
